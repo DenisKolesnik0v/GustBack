@@ -24,7 +24,7 @@ class AuthController {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: false,
-                sameSite: 'none',
+                sameSite: 'lax',
             });
 
             res.status(201).json(userData);
@@ -51,7 +51,7 @@ class AuthController {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: false,
-                sameSite: 'none',
+                sameSite: 'lax',
             });
     
             const { refreshToken, ...dataToRes } = userData;
@@ -69,14 +69,12 @@ class AuthController {
             const userAgent = req.headers['user-agent'] || 'unknown';
     
             const userData = await AuthService.refresh(refreshToken, device, ip, userAgent);
-
-            console.log(refreshToken);
     
             res.cookie('refreshToken', userData.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: false,
-                sameSite: 'none',
+                sameSite: 'lax',
             });
     
             const { refreshToken: _, ...dataToRes } = userData;
@@ -96,7 +94,7 @@ class AuthController {
             res.clearCookie('refreshToken', {
                 httpOnly: true,
                 secure: false,
-                sameSite: 'none',
+                sameSite: 'lax',
             });
 
             res.status(200).json({ message: 'Logout successful' });
