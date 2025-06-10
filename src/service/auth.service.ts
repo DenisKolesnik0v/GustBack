@@ -103,7 +103,7 @@ class AuthService {
 
     async refresh(refreshToken: string, device: string, ip: string, userAgent: string) {
         if (!refreshToken) {
-            throw new Error("Ошибка авторизации");
+            throw new Error(refreshToken);
         }
     
         const userData = await TokenService.validateRefreshToken(refreshToken);
